@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.joma.encard02.R;
 import com.joma.encard02.base.BaseFragment;
 import com.joma.encard02.common.ISendKeyWord;
 import com.joma.encard02.databinding.FragmentWordsBinding;
@@ -67,6 +68,5 @@ public class WordsFragment extends BaseFragment<FragmentWordsBinding> implements
     public void sendWord(String word) {
         Log.e("-------", word);
         viewModel.getImageByWord(word);
-        addWordsFragment.dismiss();
     }
 }

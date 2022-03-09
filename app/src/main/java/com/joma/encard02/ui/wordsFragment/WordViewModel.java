@@ -9,9 +9,9 @@ import com.joma.encard02.data.model.PixabayResponse;
 import com.joma.encard02.ui.App;
 
 public class WordViewModel extends ViewModel {
-    public LiveData<Resource<PixabayResponse>> liveData = new MutableLiveData<>();
+    protected LiveData<Resource<PixabayResponse>> liveData = new MutableLiveData<>();
 
-    public void getImageByWord(String keyWord) {
+    protected void getImageByWord(String keyWord) {
         liveData = App.repository.getImages(keyWord);
     }
 }

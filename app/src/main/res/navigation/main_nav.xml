@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav"
-    app:startDestination="@id/wordsFragment">
+    app:startDestination="@id/videoFragment">
 
     <fragment
         android:id="@+id/wordsFragment"
@@ -32,4 +32,9 @@
             app:argType="string"
             app:nullable="false" />
     </fragment>
+    <fragment
+        android:id="@+id/videoFragment"
+        android:name="com.joma.encard02.ui.videoFragment.VideoFragment"
+        android:label="fragment_video"
+        tools:layout="@layout/fragment_video" />
 </navigation>

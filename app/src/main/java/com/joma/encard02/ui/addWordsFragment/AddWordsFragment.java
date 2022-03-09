@@ -5,6 +5,7 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import com.joma.encard02.R;
 import com.joma.encard02.base.BaseBottomSheetDialogFragment;
@@ -17,7 +18,7 @@ public class AddWordsFragment extends BaseBottomSheetDialogFragment<FragmentAddW
     public AddWordsFragment() {
     }
 
-    public AddWordsFragment(ISendKeyWord keyWord) {
+    public AddWordsFragment( ISendKeyWord keyWord) {
         this.keyWord = keyWord;
     }
 
@@ -35,7 +36,7 @@ public class AddWordsFragment extends BaseBottomSheetDialogFragment<FragmentAddW
     private void initClickers() {
         binding.btnAdd.setOnClickListener(view -> {
             keyWord.sendWord(binding.etAddWord.getText().toString());
-            controller.navigate(R.id.wordsFragment);
+            controller.navigate(R.id.videoFragment);
         });
     }
 }
