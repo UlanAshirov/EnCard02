@@ -14,6 +14,9 @@ import com.joma.encard02.databinding.FragmentAddWordsBinding;
 public class AddWordsFragment extends BaseBottomSheetDialogFragment<FragmentAddWordsBinding> {
     private ISendKeyWord keyWord;
 
+    public AddWordsFragment() {
+    }
+
     public AddWordsFragment(ISendKeyWord keyWord) {
         this.keyWord = keyWord;
     }

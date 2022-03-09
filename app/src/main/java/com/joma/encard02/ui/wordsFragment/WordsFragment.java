@@ -17,6 +17,7 @@ import com.joma.encard02.ui.addWordsFragment.AddWordsFragment;
 public class WordsFragment extends BaseFragment<FragmentWordsBinding> implements ISendKeyWord {
     private WordAdapter adapter;
     private WordViewModel viewModel;
+    private AddWordsFragment addWordsFragment;
 
     @Override
     protected FragmentWordsBinding bind() {
@@ -42,9 +43,11 @@ public class WordsFragment extends BaseFragment<FragmentWordsBinding> implements
             switch (pixabayResponseResource.status) {
                 case SUCCESS:
                     adapter.setListImage(pixabayResponseResource.data.getHits());
+                    binding.progress.setVisibility(View.GONE);
                     break;
                 case LOADING:
                     Toast.makeText(requireContext(), "Ждите", Toast.LENGTH_SHORT).show();
+                    binding.progress.setVisibility(View.VISIBLE);
                     break;
                 case ERROR:
                     Toast.makeText(requireContext(), "Упс", Toast.LENGTH_SHORT).show();
@@ -55,7 +58,8 @@ public class WordsFragment extends BaseFragment<FragmentWordsBinding> implements
 
     private void initListeners() {
         binding.btnAddWord.setOnClickListener(view -> {
-            new AddWordsFragment(this).show(requireActivity().getSupportFragmentManager(), " ");
+            addWordsFragment = new AddWordsFragment(this);
+                    addWordsFragment.show(requireActivity().getSupportFragmentManager(), " ");
         });
     }
 
@@ -63,5 +67,6 @@ public class WordsFragment extends BaseFragment<FragmentWordsBinding> implements
     public void sendWord(String word) {
         Log.e("-------", word);
         viewModel.getImageByWord(word);
+        addWordsFragment.dismiss();
     }
 }
