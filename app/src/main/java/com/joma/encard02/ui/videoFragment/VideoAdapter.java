@@ -2,6 +2,7 @@ package com.joma.encard02.ui.videoFragment;
 
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,6 +52,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
         }
 
         public void onBindVideo(VideoHit videoHit) {
+            Log.e("ABOBA", videoHit.getVideos().getSmall().getUrl() );
            binding.itemImgVideo.videoUrl(videoHit.getVideos().getSmall().getUrl()).enableAutoStart();
             binding.tvItemTags.setText(videoHit.getTags());
         }

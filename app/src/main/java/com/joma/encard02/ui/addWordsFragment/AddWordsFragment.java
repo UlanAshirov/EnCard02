@@ -14,12 +14,13 @@ import com.joma.encard02.databinding.FragmentAddWordsBinding;
 
 public class AddWordsFragment extends BaseBottomSheetDialogFragment<FragmentAddWordsBinding> {
     private ISendKeyWord keyWord;
-
+    private Boolean img;
     public AddWordsFragment() {
     }
 
-    public AddWordsFragment( ISendKeyWord keyWord) {
+    public AddWordsFragment(boolean img ,ISendKeyWord keyWord) {
         this.keyWord = keyWord;
+        this.img = img;
     }
 
     @Override
@@ -36,7 +37,11 @@ public class AddWordsFragment extends BaseBottomSheetDialogFragment<FragmentAddW
     private void initClickers() {
         binding.btnAdd.setOnClickListener(view -> {
             keyWord.sendWord(binding.etAddWord.getText().toString());
-            controller.navigate(R.id.videoFragment);
+            if (img) {
+                controller.navigate(R.id.wordsFragment);
+            } else {
+                controller.navigate(R.id.videoFragment);
+            }
         });
     }
 }

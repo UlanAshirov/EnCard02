@@ -59,7 +59,7 @@ public class WordsFragment extends BaseFragment<FragmentWordsBinding> implements
 
     private void initListeners() {
         binding.btnAddWord.setOnClickListener(view -> {
-            addWordsFragment = new AddWordsFragment(this);
+            addWordsFragment = new AddWordsFragment(true ,this);
                     addWordsFragment.show(requireActivity().getSupportFragmentManager(), " ");
         });
     }
@@ -68,5 +68,6 @@ public class WordsFragment extends BaseFragment<FragmentWordsBinding> implements
     public void sendWord(String word) {
         Log.e("-------", word);
         viewModel.getImageByWord(word);
+        addWordsFragment.dismiss();
     }
 }

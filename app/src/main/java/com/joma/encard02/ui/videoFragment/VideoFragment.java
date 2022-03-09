@@ -36,7 +36,7 @@ public class VideoFragment extends BaseFragment<FragmentVideoBinding> implements
 
     private void initClickers() {
         binding.btnSearchVideo.setOnClickListener(view -> {
-            addWordsFragment = new AddWordsFragment(this);
+            addWordsFragment = new AddWordsFragment(false ,this);
                     addWordsFragment.show(requireActivity().getSupportFragmentManager(), " ");
         });
     }
