@@ -13,6 +13,7 @@ import com.joma.encard02.R;
 import com.joma.encard02.base.BaseFragment;
 import com.joma.encard02.common.ISendKeyWord;
 import com.joma.encard02.databinding.FragmentWordsBinding;
+import com.joma.encard02.ui.App;
 import com.joma.encard02.ui.addWordsFragment.AddWordsFragment;
 
 public class WordsFragment extends BaseFragment<FragmentWordsBinding> implements ISendKeyWord {
