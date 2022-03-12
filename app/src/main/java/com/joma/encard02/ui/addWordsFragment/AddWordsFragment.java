@@ -1,14 +1,13 @@
 package com.joma.encard02.ui.addWordsFragment;
 
 import android.os.Bundle;
-import android.view.KeyEvent;
+import android.os.Handler;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 
 import com.joma.encard02.R;
 import com.joma.encard02.base.BaseBottomSheetDialogFragment;
@@ -18,6 +17,7 @@ import com.joma.encard02.databinding.FragmentAddWordsBinding;
 public class AddWordsFragment extends BaseBottomSheetDialogFragment<FragmentAddWordsBinding> {
     private ISendKeyWord keyWord;
     private Boolean img;
+    private Handler handler;
 
     public AddWordsFragment() {
     }
@@ -39,14 +39,38 @@ public class AddWordsFragment extends BaseBottomSheetDialogFragment<FragmentAddW
     }
 
     private void initClickers() {
+        binding.etAddWord.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                int length = binding.etAddWord.getText().length();
+                handler = new Handler();
+                handler.postDelayed(() -> {
+                    if (length == binding.etAddWord.getText().length()) {
+                        keyWord.sendWord(binding.etAddWord.getText().toString());
+                        if (img) {
+                            controller.navigate(R.id.wordsFragment);
+                        } else {
+                            controller.navigate(R.id.videoFragment);
+                        }
+                    }
+                }, 2000);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+        /*
         binding.etAddWord.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
-                if (actionId == EditorInfo.IME_ACTION_SEARCH ||
-                        actionId == EditorInfo.IME_ACTION_DONE ||
-                        keyEvent != null &&
-                                keyEvent.getAction() == KeyEvent.ACTION_DOWN &&
-                                keyEvent.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
                     if (keyEvent == null || !keyEvent.isShiftPressed()) {
                         keyWord.sendWord(binding.etAddWord.getText().toString());
                         if (img) {
@@ -58,6 +82,6 @@ public class AddWordsFragment extends BaseBottomSheetDialogFragment<FragmentAddW
                 }
                 return true;
             }
-        });
+        });*/
     }
 }
