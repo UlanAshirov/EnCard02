@@ -17,7 +17,7 @@ public class WordAdapter extends RecyclerView.Adapter<WordAdapter.WordViewHolder
     private List<Hit> listImage = new ArrayList<>();
 
     public void setListImage(List<Hit> listImage) {
-        this.listImage = listImage;
+        this.listImage.addAll(listImage);
         notifyDataSetChanged();
     }
 

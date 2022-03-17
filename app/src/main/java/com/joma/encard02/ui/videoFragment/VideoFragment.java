@@ -69,6 +69,5 @@ public class VideoFragment extends BaseFragment<FragmentVideoBinding> implements
     @Override
     public void sendWord(String word, int page) {
         viewModel.getVideoByTag(word, page);
-        addWordsFragment.dismiss();
     }
 }

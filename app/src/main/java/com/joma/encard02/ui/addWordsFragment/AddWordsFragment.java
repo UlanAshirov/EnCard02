@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -18,7 +19,9 @@ public class AddWordsFragment extends BaseBottomSheetDialogFragment<FragmentAddW
     private ISendKeyWord keyWord;
     private Boolean img;
     private Handler handler;
-    private int page;
+    private int page = 1;
+    private String word;
+
     public AddWordsFragment() {
     }
 
@@ -50,39 +53,25 @@ public class AddWordsFragment extends BaseBottomSheetDialogFragment<FragmentAddW
                 int length = binding.etAddWord.getText().length();
                 handler = new Handler();
                 handler.postDelayed(() -> {
-                    if (length == binding.etAddWord.getText().length()) {
-                        page = 1;
-                        keyWord.sendWord(binding.etAddWord.getText().toString(), page);
+                    word = binding.etAddWord.getText().toString();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("word", word);
+                    if (length == word.length()) {
+                        Log.e("refresh", word + "");
+                        dismiss();
                         if (img) {
-                            controller.navigate(R.id.navigation_words);
+                            controller.navigate(R.id.navigation_words, bundle);
                         } else {
                             controller.navigate(R.id.navigation_video);
                         }
+                        keyWord.sendWord(word, page);
                     }
                 }, 2000);
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
-
             }
         });
-        /*
-        binding.etAddWord.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
-                if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    if (keyEvent == null || !keyEvent.isShiftPressed()) {
-                        keyWord.sendWord(binding.etAddWord.getText().toString());
-                        if (img) {
-                            controller.navigate(R.id.wordsFragment);
-                        } else {
-                            controller.navigate(R.id.videoFragment);
-                        }
-                    }
-                }
-                return true;
-            }
-        });*/
     }
 }

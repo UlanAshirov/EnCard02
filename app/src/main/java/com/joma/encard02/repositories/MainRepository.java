@@ -20,16 +20,18 @@ import retrofit2.Response;
 
 public class MainRepository {
     private final PixabayApi api;
+    private final int limit = 10;
+    private MutableLiveData<Resource<PixabayResponse<Hit>>> liveData = new MutableLiveData<>();
 
     @Inject
     public MainRepository(PixabayApi api) {
         this.api = api;
     }
 
-    public MutableLiveData<Resource<PixabayResponse<Hit>>> getImages(String keyWord, int page) {
-        MutableLiveData<Resource<PixabayResponse<Hit>>> liveData = new MutableLiveData<>();
+    public MutableLiveData<Resource<PixabayResponse<Hit>>> getImages(String keyWord,
+                                                                     int page) {
         liveData.setValue(Resource.loading());
-        api.getImages(keyWord, page).enqueue(new Callback<PixabayResponse<Hit>>() {
+        api.getImages(keyWord, page, limit).enqueue(new Callback<PixabayResponse<Hit>>() {
             @Override
             public void onResponse(@NotNull Call<PixabayResponse<Hit>> call,
                                    @NotNull Response<PixabayResponse<Hit>> response) {
@@ -51,7 +53,7 @@ public class MainRepository {
     public MutableLiveData<Resource<MainVideoResponce>> getVideo(String tags, int page) {
         MutableLiveData<Resource<MainVideoResponce>> liveData = new MutableLiveData<>();
         liveData.setValue(Resource.loading());
-        api.getVideo(tags, page)
+        api.getVideo(tags, page, limit)
                 .enqueue(new Callback<MainVideoResponce>() {
                     @Override
                     public void onResponse(@NotNull Call<MainVideoResponce> call,
