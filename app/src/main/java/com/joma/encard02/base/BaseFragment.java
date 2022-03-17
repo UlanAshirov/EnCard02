@@ -14,6 +14,8 @@ import androidx.viewbinding.ViewBinding;
 
 import com.joma.encard02.R;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
 public abstract class BaseFragment<VB extends ViewBinding> extends Fragment {
     protected VB binding;
 
@@ -25,7 +27,7 @@ public abstract class BaseFragment<VB extends ViewBinding> extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = bind();
-        controller = Navigation.findNavController(requireActivity(), R.id.nav_host);
+            controller = Navigation.findNavController(requireActivity(), R.id.nav_host);
         setupUI();
         setupObservers();
         return binding.getRoot();

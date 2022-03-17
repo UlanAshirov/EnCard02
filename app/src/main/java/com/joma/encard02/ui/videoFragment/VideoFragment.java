@@ -4,25 +4,24 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.view.View;
 import android.widget.Toast;
 
-import com.joma.encard02.R;
 import com.joma.encard02.base.BaseFragment;
 import com.joma.encard02.common.ISendKeyWord;
-import com.joma.encard02.common.Resource;
-import com.joma.encard02.data.videoModel.MainVideoResponce;
 import com.joma.encard02.databinding.FragmentVideoBinding;
-import com.joma.encard02.ui.App;
 import com.joma.encard02.ui.addWordsFragment.AddWordsFragment;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class VideoFragment extends BaseFragment<FragmentVideoBinding> implements ISendKeyWord {
     private VideoAdapter adapter;
-    private VideoViewModel viewModel;
+    public VideoViewModel viewModel;
     private AddWordsFragment addWordsFragment;
+
     @Override
     protected FragmentVideoBinding bind() {
         return FragmentVideoBinding.inflate(getLayoutInflater());
@@ -36,8 +35,8 @@ public class VideoFragment extends BaseFragment<FragmentVideoBinding> implements
 
     private void initClickers() {
         binding.btnSearchVideo.setOnClickListener(view -> {
-            addWordsFragment = new AddWordsFragment(false ,this);
-                    addWordsFragment.show(requireActivity().getSupportFragmentManager(), " ");
+            addWordsFragment = new AddWordsFragment(false, this);
+            addWordsFragment.show(requireActivity().getSupportFragmentManager(), " ");
         });
     }
 
@@ -50,28 +49,26 @@ public class VideoFragment extends BaseFragment<FragmentVideoBinding> implements
 
     @Override
     protected void setupObservers() {
-        viewModel.liveData.observe(getViewLifecycleOwner(), mainVideoResponceResource -> {
+        viewModel.getLiveData().observe(getViewLifecycleOwner(), mainVideoResponceResource -> {
             switch (mainVideoResponceResource.status) {
                 case SUCCESS:
-                    Toast.makeText(requireContext(), "Запрос успешен", Toast.LENGTH_SHORT).show();
-                    adapter.setVideoHits(mainVideoResponceResource.data.getVideoHits());
+                    Toast.makeText(requireContext(), "Success", Toast.LENGTH_SHORT).show();
                     binding.progressVideo.setVisibility(View.GONE);
+                    adapter.setVideoHits(mainVideoResponceResource.data.getVideoHits());
                     break;
                 case LOADING:
-                    Toast.makeText(requireContext(), "Ждите", Toast.LENGTH_SHORT).show();
-                    binding.progressVideo.setVisibility(View.VISIBLE);
+                    Toast.makeText(requireContext(), "Loading", Toast.LENGTH_SHORT).show();
                     break;
                 case ERROR:
-                    Toast.makeText(requireContext(), "Упс", Toast.LENGTH_SHORT).show();
-                    binding.progressVideo.setVisibility(View.GONE);
+                    Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show();
                     break;
             }
         });
     }
 
     @Override
-    public void sendWord(String word) {
-        viewModel.getVideoByTag(word);
+    public void sendWord(String word, int page) {
+        viewModel.getVideoByTag(word, page);
         addWordsFragment.dismiss();
     }
 }

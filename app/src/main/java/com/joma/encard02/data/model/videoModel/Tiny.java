@@ -1,10 +1,10 @@
 
-package com.joma.encard02.data.videoModel;
+package com.joma.encard02.data.model.videoModel;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Medium {
+public class Tiny {
 
     @SerializedName("url")
     @Expose

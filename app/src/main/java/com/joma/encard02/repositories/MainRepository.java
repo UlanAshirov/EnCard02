@@ -4,30 +4,35 @@ import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 
-import com.joma.encard02.R;
 import com.joma.encard02.common.Resource;
-import com.joma.encard02.data.model.PixabayResponse;
-import com.joma.encard02.data.network.PixabayApi;
-import com.joma.encard02.data.videoModel.MainVideoResponce;
-import com.joma.encard02.ui.App;
+import com.joma.encard02.data.model.imageModel.Hit;
+import com.joma.encard02.data.model.imageModel.PixabayResponse;
+import com.joma.encard02.data.network.pixabay.PixabayApi;
+import com.joma.encard02.data.model.videoModel.MainVideoResponce;
+
+import org.jetbrains.annotations.NotNull;
+
+import javax.inject.Inject;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainRepository {
-    private PixabayApi api;
+    private final PixabayApi api;
 
+    @Inject
     public MainRepository(PixabayApi api) {
         this.api = api;
     }
 
-    public MutableLiveData<Resource<PixabayResponse>> getImages(String keyWord) {
-        MutableLiveData<Resource<PixabayResponse>> liveData = new MutableLiveData<>();
+    public MutableLiveData<Resource<PixabayResponse<Hit>>> getImages(String keyWord, int page) {
+        MutableLiveData<Resource<PixabayResponse<Hit>>> liveData = new MutableLiveData<>();
         liveData.setValue(Resource.loading());
-        api.getImages(keyWord).enqueue(new Callback<PixabayResponse>() {
+        api.getImages(keyWord, page).enqueue(new Callback<PixabayResponse<Hit>>() {
             @Override
-            public void onResponse(Call<PixabayResponse> call, Response<PixabayResponse> response) {
+            public void onResponse(@NotNull Call<PixabayResponse<Hit>> call,
+                                   @NotNull Response<PixabayResponse<Hit>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     liveData.setValue(Resource.success(response.body()));
                 } else {
@@ -36,36 +41,36 @@ public class MainRepository {
             }
 
             @Override
-            public void onFailure(Call<PixabayResponse> call, Throwable t) {
-                Log.d("------", t.getLocalizedMessage());
+            public void onFailure(@NotNull Call<PixabayResponse<Hit>> call, @NotNull Throwable t) {
                 liveData.setValue(Resource.error(t.getLocalizedMessage()));
             }
         });
         return liveData;
     }
 
-    public MutableLiveData<Resource<MainVideoResponce>> getVideo(String tags) {
+    public MutableLiveData<Resource<MainVideoResponce>> getVideo(String tags, int page) {
         MutableLiveData<Resource<MainVideoResponce>> liveData = new MutableLiveData<>();
         liveData.setValue(Resource.loading());
-        api.getVideo(tags)
+        api.getVideo(tags, page)
                 .enqueue(new Callback<MainVideoResponce>() {
-            @Override
-            public void onResponse(Call<MainVideoResponce> call, Response<MainVideoResponce> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    Log.e("------", response.body() + "");
-                    liveData.setValue(Resource.success(response.body()));
-                } else {
-                    Log.e("------", response.message());
-                    liveData.setValue(Resource.error(response.message()));
-                }
-            }
+                    @Override
+                    public void onResponse(@NotNull Call<MainVideoResponce> call,
+                                           @NotNull Response<MainVideoResponce> response) {
+                        if (response.isSuccessful() && response.body() != null) {
+                            Log.e("------", response.body() + "");
+                            liveData.setValue(Resource.success(response.body()));
+                        } else {
+                            Log.e("------", response.message());
+                            liveData.setValue(Resource.error(response.message()));
+                        }
+                    }
 
-            @Override
-            public void onFailure(Call<MainVideoResponce> call, Throwable t) {
-                Log.e("------", t.getLocalizedMessage());
-                liveData.setValue(Resource.error(t.getLocalizedMessage()));
-            }
-        });
+                    @Override
+                    public void onFailure(@NotNull Call<MainVideoResponce> call, @NotNull Throwable t) {
+                        Log.e("------", t.getLocalizedMessage());
+                        liveData.setValue(Resource.error(t.getLocalizedMessage()));
+                    }
+                });
         return liveData;
     }
 }

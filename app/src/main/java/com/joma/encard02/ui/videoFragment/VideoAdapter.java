@@ -1,7 +1,5 @@
 package com.joma.encard02.ui.videoFragment;
 
-import android.media.MediaPlayer;
-import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,15 +8,11 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.joma.encard02.data.videoModel.VideoHit;
-import com.joma.encard02.data.videoModel.Videos;
+import com.joma.encard02.data.model.videoModel.VideoHit;
 import com.joma.encard02.databinding.ItemVideoBinding;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import retrofit2.http.Url;
 
 public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHolder> {
     private ItemVideoBinding binding;
@@ -39,6 +33,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
     @Override
     public void onBindViewHolder(@NonNull VideoAdapter.VideoViewHolder holder, int position) {
         holder.onBindVideo(videoHits.get(position));
+
     }
 
     @Override
@@ -52,8 +47,8 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
         }
 
         public void onBindVideo(VideoHit videoHit) {
-            Log.e("ABOBA", videoHit.getVideos().getSmall().getUrl() );
-           binding.itemImgVideo.videoUrl(videoHit.getVideos().getSmall().getUrl()).enableAutoStart();
+            Log.e("ABOBA", videoHit.getVideos().getSmall().getUrl());
+            binding.itemImgVideo.videoUrl(videoHit.getVideos().getSmall().getUrl()).enableAutoStart();
             binding.tvItemTags.setText(videoHit.getTags());
         }
     }

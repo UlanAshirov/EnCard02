@@ -1,11 +1,11 @@
 
-package com.joma.encard02.data.model;
+package com.joma.encard02.data.model.videoModel;
 
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class PixabayResponse {
+public class MainVideoResponce {
 
     @SerializedName("total")
     @Expose
@@ -15,7 +15,7 @@ public class PixabayResponse {
     private Integer totalHits;
     @SerializedName("hits")
     @Expose
-    private List<Hit> hits = null;
+    private List<VideoHit> hits = null;
 
     public Integer getTotal() {
         return total;
@@ -33,11 +33,11 @@ public class PixabayResponse {
         this.totalHits = totalHits;
     }
 
-    public List<Hit> getHits() {
+    public List<VideoHit> getVideoHits() {
         return hits;
     }
 
-    public void setHits(List<Hit> hits) {
+    public void setHits(List<VideoHit> hits) {
         this.hits = hits;
     }
 

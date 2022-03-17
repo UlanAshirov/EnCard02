@@ -1,5 +1,5 @@
 
-package com.joma.encard02.data.model;
+package com.joma.encard02.data.model.imageModel;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -249,4 +249,31 @@ public class Hit {
         this.userImageURL = userImageURL;
     }
 
+    @Override
+    public String toString() {
+        return "Hit{" +
+                "id=" + id +
+                ", pageURL='" + pageURL + '\'' +
+                ", type='" + type + '\'' +
+                ", tags='" + tags + '\'' +
+                ", previewURL='" + previewURL + '\'' +
+                ", previewWidth=" + previewWidth +
+                ", previewHeight=" + previewHeight +
+                ", webformatURL='" + webformatURL + '\'' +
+                ", webformatWidth=" + webformatWidth +
+                ", webformatHeight=" + webformatHeight +
+                ", largeImageURL='" + largeImageURL + '\'' +
+                ", imageWidth=" + imageWidth +
+                ", imageHeight=" + imageHeight +
+                ", imageSize=" + imageSize +
+                ", views=" + views +
+                ", downloads=" + downloads +
+                ", collections=" + collections +
+                ", likes=" + likes +
+                ", comments=" + comments +
+                ", userId=" + userId +
+                ", user='" + user + '\'' +
+                ", userImageURL='" + userImageURL + '\'' +
+                '}';
+    }
 }

@@ -18,7 +18,7 @@ public class AddWordsFragment extends BaseBottomSheetDialogFragment<FragmentAddW
     private ISendKeyWord keyWord;
     private Boolean img;
     private Handler handler;
-
+    private int page;
     public AddWordsFragment() {
     }
 
@@ -51,11 +51,12 @@ public class AddWordsFragment extends BaseBottomSheetDialogFragment<FragmentAddW
                 handler = new Handler();
                 handler.postDelayed(() -> {
                     if (length == binding.etAddWord.getText().length()) {
-                        keyWord.sendWord(binding.etAddWord.getText().toString());
+                        page = 1;
+                        keyWord.sendWord(binding.etAddWord.getText().toString(), page);
                         if (img) {
-                            controller.navigate(R.id.wordsFragment);
+                            controller.navigate(R.id.navigation_words);
                         } else {
-                            controller.navigate(R.id.videoFragment);
+                            controller.navigate(R.id.navigation_video);
                         }
                     }
                 }, 2000);

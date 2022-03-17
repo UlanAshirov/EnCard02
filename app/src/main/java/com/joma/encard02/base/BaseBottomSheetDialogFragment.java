@@ -27,7 +27,7 @@ public abstract class BaseBottomSheetDialogFragment<VB extends ViewBinding>
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = bind();
-        controller = Navigation.findNavController(requireActivity(), R.id.nav_host);
+            controller = Navigation.findNavController(requireActivity(), R.id.nav_host);
         return binding.getRoot();
     }
 }
