@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_words">
+
+
+    <fragment
+        android:id="@+id/navigation_words"
+        android:name="com.joma.encard02.ui.wordsFragment.WordsFragment"
+        android:label="fragment_words"
+        tools:layout="@layout/fragment_words" />
+    <fragment
+        android:id="@+id/navigation_video"
+        android:name="com.joma.encard02.ui.videoFragment.VideoFragment"
+        android:label="fragment_video"
+        tools:layout="@layout/fragment_video" />
+    <fragment
+        android:id="@+id/navigation_on_board"
+        android:name="com.joma.encard02.ui.onBoard.OnBoardFragment"
+        android:label="fragment_on_board"
+        tools:layout="@layout/fragment_on_board" />
+</navigation>
